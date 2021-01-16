@@ -12,28 +12,28 @@
       <div class="bar" id="bar1" />
     </div>
     <!-- <button class="button1" onclick='fillBar(10)'>Start</button> -->
-    <button class="button1" >Start</button>
+    <button class="button1" >Start Using Pixels and Interval</button>
 </div>
 
 <div>
   <div class="bar-container">
     <div class="bar" id="bar2"/>
   </div>
-  <button class="button2" >Start 2</button>
+  <button class="button2" >Start 2 Using Percents and Interval</button>
 </div>
 
 <div>
   <div class="bar-container">
     <div class="bar" id="bar3"/>
   </div>
-  <button class="button3" >Start 3</button>
+  <button class="button3" >Start 3 Using Simple Percent</button>
 </div>
 
 <div>
   <div class="bar-container">
     <div class="bar" id="bar4"/>
   </div>
-  <button class="button4" >Start 4</button>
+  <button class="button4" >Start 4 using just CSS</button>
 </div>
 
 <!-- Script Here -->
@@ -42,17 +42,16 @@
     const button2 = document.querySelector('.button2');
     const button3 = document.querySelector('.button3'); 
     const button4 = document.querySelector('.button4'); 
-    const bar1 = document.querySelector('#bar1')
-    const bar2 = document.querySelector('#bar2')
-    const bar3 = document.querySelector('#bar3')
-    const barContainer = document.querySelector('.bar-container')
-
+    
     button1.onclick = () => fillBarUsingPixels(3)
     button2.onclick = () => fillBarUsingPercents(3)
     button3.onclick = () => fillBarWithPercentSimple(3)
     button4.onclick = () => fillBarWithCSS(.3)
 
+
     function fillBarUsingPixels(seconds) {
+      const bar1 = document.querySelector('#bar1')
+      const barContainer = document.querySelector('.bar-container')
       let progressWidthPx = 0
       const intervalMs = 300
       const incrementPerInterval = barContainer.clientWidth / (seconds * 1000 / intervalMs)
@@ -63,13 +62,14 @@
           bar1.style.width = `${progressWidthPx}px`
         }
         , intervalMs);
-      setTimeout( () => {
-        clearInterval(timerId);
+        setTimeout( () => {
+          clearInterval(timerId);
         bar1.style.backgroundColor = "red"
       }, seconds * 1000 )
     }
     
     function fillBarUsingPercents(seconds) {
+      const bar2 = document.querySelector('#bar2')
       let progressWidthPercent = 0
       const intervalMs = 300
       const incrementPerInterval = (intervalMs / (seconds*1000)) * 100
@@ -85,9 +85,10 @@
           }
         }
         , intervalMs);
-    }
-
-    function fillBarWithPercentSimple(seconds) {
+      }
+      
+      function fillBarWithPercentSimple(seconds) {
+        const bar3 = document.querySelector('#bar3')
         let progressPercent = 0
         const timerId = setInterval( () => {
           bar3.style.width = progressPercent + "%"
@@ -96,12 +97,21 @@
             clearInterval(timerId)
           }
         }, (seconds * 1000) / 100)
-    }
+      }
 
     function fillBarWithCSS(seconds) {
       const bar4 = document.querySelector('#bar4')
+
+      bar4.style.transition = '0s'
       bar4.style.transition = `${seconds}s linear width`
       bar4.style.width = '100%'
+
+      bar4.addEventListener('transitionend', function() {
+        bar4.style.transition = '0s width'
+        bar4.style.width = '0%'
+        bar4.style.transitionDelay = '1s';
+      });
+
     }
 
   </script>
