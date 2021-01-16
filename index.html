@@ -22,7 +22,6 @@
   <button class="button2" >Start 2</button>
 </div>
 
-
 <div>
   <div class="bar-container">
     <div class="bar" id="bar3"/>
@@ -30,11 +29,19 @@
   <button class="button3" >Start 3</button>
 </div>
 
+<div>
+  <div class="bar-container">
+    <div class="bar" id="bar4"/>
+  </div>
+  <button class="button4" >Start 4</button>
+</div>
+
 <!-- Script Here -->
   <script>
     const button1 = document.querySelector('.button1');
     const button2 = document.querySelector('.button2');
     const button3 = document.querySelector('.button3'); 
+    const button4 = document.querySelector('.button4'); 
     const bar1 = document.querySelector('#bar1')
     const bar2 = document.querySelector('#bar2')
     const bar3 = document.querySelector('#bar3')
@@ -43,6 +50,7 @@
     button1.onclick = () => fillBarUsingPixels(3)
     button2.onclick = () => fillBarUsingPercents(3)
     button3.onclick = () => fillBarWithPercentSimple(3)
+    button4.onclick = () => fillBarWithCSS(.3)
 
     function fillBarUsingPixels(seconds) {
       let progressWidthPx = 0
@@ -88,6 +96,12 @@
             clearInterval(timerId)
           }
         }, (seconds * 1000) / 100)
+    }
+
+    function fillBarWithCSS(seconds) {
+      const bar4 = document.querySelector('#bar4')
+      bar4.style.transition = `${seconds}s linear width`
+      bar4.style.width = '100%'
     }
 
   </script>
