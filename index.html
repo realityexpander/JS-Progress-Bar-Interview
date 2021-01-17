@@ -46,7 +46,7 @@
     button1.onclick = () => fillBarUsingPixels(3)
     button2.onclick = () => fillBarUsingPercents(3)
     button3.onclick = () => fillBarWithPercentSimple(3)
-    button4.onclick = () => fillBarWithCSS(.3)
+    button4.onclick = () => fillBarWithCSS(3)
 
 
     function fillBarUsingPixels(seconds) {
@@ -64,7 +64,7 @@
         , intervalMs);
         setTimeout( () => {
           clearInterval(timerId);
-        bar1.style.backgroundColor = "red"
+          bar1.style.backgroundColor = "red"
       }, seconds * 1000 )
     }
     
@@ -87,21 +87,23 @@
         , intervalMs);
       }
       
-      function fillBarWithPercentSimple(seconds) {
-        const bar3 = document.querySelector('#bar3')
-        let progressPercent = 0
-        const timerId = setInterval( () => {
-          bar3.style.width = progressPercent + "%"
-          progressPercent++;
-          if (progressPercent > 100) {
-            clearInterval(timerId)
-          }
-        }, (seconds * 1000) / 100)
-      }
+    function fillBarWithPercentSimple(seconds) {
+      const bar3 = document.querySelector('#bar3')
+      let progressPercent = 0
+      const timerId = setInterval( () => {
+        bar3.style.width = progressPercent + "%"
+        progressPercent++;
+        if (progressPercent > 100) {
+          clearInterval(timerId)
+          bar3.style.backgroundColor = "red"
+        }
+      }, (seconds * 1000) / 100)
+    }
 
     function fillBarWithCSS(seconds) {
       const bar4 = document.querySelector('#bar4')
 
+      bar4.style.backgroundColor = "green"
       bar4.style.transition = '0s'
       bar4.style.transition = `${seconds}s linear width`
       bar4.style.width = '100%'
@@ -109,7 +111,8 @@
       bar4.addEventListener('transitionend', function() {
         bar4.style.transition = '0s width'
         bar4.style.width = '0%'
-        bar4.style.transitionDelay = '1s';
+        bar4.style.transitionDelay = '2s';
+        bar4.style.backgroundColor = "red"
       });
 
     }
